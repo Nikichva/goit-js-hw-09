@@ -1,5 +1,8 @@
 'use strict';
 
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const images = [
   {
     preview:
@@ -85,3 +88,8 @@ function createGalleryMarkup(images, gallery) {
 }
 
 createGalleryMarkup(images, gallery);
+
+new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
