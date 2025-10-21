@@ -10,12 +10,16 @@ const formData = {
   message: '',
 };
 
-const parsedJson = JSON.parse(localStorage.getItem(localStorageKey));
-
 try {
-  email.value = parsedJson.email ?? '';
-  textarea.value = parsedJson.message ?? '';
-} catch (error) {}
+  const savedState = localStorage.getItem(localStorageKey);
+  if (savedState) {
+    const parsedJson = JSON.parse(savedState);
+    email.value = parsedJson.email ?? '';
+    textarea.value = parsedJson.message ?? '';
+  }
+} catch (error) {
+  console.log(error.message);
+}
 
 form.addEventListener('input', evt => {
   formData.email = email.value.trim();
@@ -27,9 +31,10 @@ form.addEventListener('input', evt => {
 
 form.addEventListener('submit', evt => {
   evt.preventDefault();
-  if (email.value && textarea.value) {
-    console.log(JSON.parse(localStorage.getItem(localStorageKey)));
-    localStorage.removeItem(localStorageKey);
-    form.reset();
+  if (!email.value.trim() || !textarea.value.trim()) {
+    return;
   }
+  console.log(JSON.parse(localStorage.getItem(localStorageKey)));
+  localStorage.removeItem(localStorageKey);
+  form.reset();
 });
