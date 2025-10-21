@@ -28,7 +28,7 @@ form.addEventListener('input', evt => {
 form.addEventListener('submit', evt => {
   evt.preventDefault();
   if (email.value && textarea.value) {
-    console.log(formData);
+    console.log(JSON.parse(localStorage.getItem(localStorageKey)));
     localStorage.removeItem(localStorageKey);
     form.reset();
   }
